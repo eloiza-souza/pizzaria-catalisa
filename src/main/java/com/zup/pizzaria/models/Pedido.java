@@ -5,20 +5,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.math.BigDecimal;
+
 @Entity
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String descricao;
     private Long clienteId;
+    private BigDecimal valorTotal;
 
     public Pedido() {
     }
 
-    public Pedido(Long clienteId, String descricao) {
-        this.clienteId = clienteId;
+    public Pedido(String descricao, Long clienteId, BigDecimal valorTotal) {
         this.descricao = descricao;
+        this.clienteId = clienteId;
+        this.valorTotal = valorTotal;
     }
 
     public Long getId() {
@@ -43,5 +48,13 @@ public class Pedido {
 
     public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }
