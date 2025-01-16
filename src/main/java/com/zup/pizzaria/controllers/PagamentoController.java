@@ -1,0 +1,29 @@
+package com.zup.pizzaria.controllers;
+
+import com.zup.pizzaria.dtos.PagamentoDTO;
+import com.zup.pizzaria.models.Pagamento;
+import com.zup.pizzaria.models.Pedido;
+import com.zup.pizzaria.services.PagamentoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.math.BigDecimal;
+
+@RestController
+@RequestMapping("/pagamentos")
+public class PagamentoController {
+    @Autowired
+    private PagamentoService pagamentoService;
+
+    @PostMapping
+    public ResponseEntity<PagamentoDTO> criarPagamento(@RequestBody Pagamento pagamento) {
+
+        PagamentoDTO pagamentoDTO = pagamentoService.criarPagamento(pagamento);
+        return ResponseEntity.ok(pagamentoDTO);
+    }
+
+}
