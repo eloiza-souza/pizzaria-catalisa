@@ -14,6 +14,6 @@ public class ClienteService {
 
     public ClienteDTO criarCliente(Cliente cliente){
         clienteRepository.save(cliente);
-        return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail());
+        return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getEmail());
     }
 }
