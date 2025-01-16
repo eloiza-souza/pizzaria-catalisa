@@ -19,7 +19,7 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> criarPagamento(@Valid @RequestBody Cliente cliente) {
+    public ResponseEntity<ClienteDTO> criarCliente(@Valid @RequestBody Cliente cliente) {
         ClienteDTO clienteDTO = clienteService.criarCliente(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);
     }
