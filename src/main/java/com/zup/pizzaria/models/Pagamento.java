@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Entity
 public class Pagamento {
@@ -19,6 +18,7 @@ public class Pagamento {
     private String formaPagamento;
     private BigDecimal valorPago;
     private Instant dataHoraPagamento;
+
     public Pagamento() {
     }
 
