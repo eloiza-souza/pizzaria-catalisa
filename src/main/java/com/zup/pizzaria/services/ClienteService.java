@@ -33,6 +33,15 @@ public class ClienteService {
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
     }
 
+    public ClienteResponse atualizarCliente(Long id, ClienteRequest request){
+        Cliente cliente = obterClientePeloId(id);
+        cliente.setNome(request.getNome());
+        cliente.setEmail(request.getEmail());
+        cliente.setTelefone(request.getTelefone());
+        clienteRepository.save(cliente);
+        return new ClienteResponse(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone());
+    }
+
     private Cliente obterClienteDeClienteRequest(ClienteRequest clienteRequest) {
         return new Cliente(clienteRequest.getNome(), clienteRequest.getEmail(), clienteRequest.getTelefone());
     }
