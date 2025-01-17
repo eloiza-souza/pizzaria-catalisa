@@ -20,7 +20,7 @@ public class PagamentoService {
         // Obtém o pedido
         Pedido pedido = pedidoRepository
                 .findById(pagamento.getPedidoId())
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
 
         pagamento.validarPagamento(pedido.getValorTotal());
         pagamentoRepository.save(pagamento);
