@@ -61,10 +61,5 @@ public class Pagamento {
         return dataHoraPagamento;
     }
 
-    // Método para validar o pagamento
-    public void validarPagamento(BigDecimal valorTotalPedido) {
-        if (valorPago.compareTo(valorTotalPedido) < 0) {
-            throw new IllegalArgumentException("O valor pago não pode ser menor que o valor total do pedido.");
-        }
-    }
+
 }

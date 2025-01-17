@@ -8,6 +8,8 @@ import com.zup.pizzaria.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class PagamentoService {
     @Autowired
@@ -21,8 +23,14 @@ public class PagamentoService {
                 .findById(pagamento.getPedidoId())
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
 
-        pagamento.validarPagamento(pedido.getValorTotal());
+        validarPagamento(pedido.getValorTotal(), pagamento.getValorPago());
         pagamentoRepository.save(pagamento);
         return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago(),pagamento.getDataHoraPagamento());
+    }
+
+    public void validarPagamento(BigDecimal valorTotalPedido, BigDecimal valorPago) {
+        if (valorPago.compareTo(valorTotalPedido) < 0) {
+            throw new IllegalArgumentException("O valor pago não pode ser menor que o valor total do pedido.");
+        }
     }
 }
