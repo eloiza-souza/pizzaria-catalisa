@@ -17,13 +17,12 @@ public class PagamentoService {
     private PedidoRepository pedidoRepository;
 
     public PagamentoResponse criarPagamento(Pagamento pagamento) {
-        // Obtém o pedido
         Pedido pedido = pedidoRepository
                 .findById(pagamento.getPedidoId())
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
 
         pagamento.validarPagamento(pedido.getValorTotal());
         pagamentoRepository.save(pagamento);
-        return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago());
+        return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago(),pagamento.getDataHoraPagamento());
     }
 }
