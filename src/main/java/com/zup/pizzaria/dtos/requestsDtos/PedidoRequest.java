@@ -13,7 +13,6 @@ public class PedidoRequest {
     private String descricao;
 
     @NotNull(message = "O clienteId não pode ser nulo.")
-    @Pattern(regexp = "\\d+", message = "O id do cliente deve conter apenas números.")
     private Long clienteId;
 
     @NotNull(message = "O valor total do pedido não pode ser nulo")
