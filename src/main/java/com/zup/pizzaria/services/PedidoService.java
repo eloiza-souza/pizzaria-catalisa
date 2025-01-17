@@ -1,6 +1,7 @@
 package com.zup.pizzaria.services;
 
-import com.zup.pizzaria.dtos.PedidoResponse;
+import com.zup.pizzaria.dtos.requestsDtos.PedidoRequest;
+import com.zup.pizzaria.dtos.responseDtos.PedidoResponse;
 import com.zup.pizzaria.models.Cliente;
 import com.zup.pizzaria.models.Pedido;
 import com.zup.pizzaria.repository.ClienteRepository;
@@ -17,15 +18,18 @@ public class PedidoService {
         this.clienteRepository = clienteRepository;
     }
 
-    public PedidoResponse criarPedido(Pedido pedido) {
-        // Obtenho cliente
+    public PedidoResponse criarPedido(PedidoRequest pedidoRequest) {
         Cliente cliente = clienteRepository
-                .findById(pedido.getClienteId())
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .findById(pedidoRequest.getClienteId())
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
 
-        // Salva pedido
+        Pedido pedido = obterPedidoDePedidoRequest(pedidoRequest);
         pedidoRepository.save(pedido);
 
-        return new PedidoResponse(cliente.getNome(), cliente.getEmail(), pedido.getDescricao());
+        return new PedidoResponse(cliente.getNome(), cliente.getEmail(), pedido.getDescricao(), pedido.getValorTotal());
+    }
+
+    private Pedido obterPedidoDePedidoRequest(PedidoRequest pedidoRequest){
+        return new Pedido(pedidoRequest.getDescricao(), pedidoRequest.getClienteId(), pedidoRequest.getValorTotal());
     }
 }
