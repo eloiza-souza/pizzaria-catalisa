@@ -53,6 +53,11 @@ public class PagamentoService {
         return obterPagamentoResponseDePagamento(pagamento);
     }
 
+    public void deletarPagamento(Long id){
+        Pagamento pagamento = obterPagamentoPeloId(id);
+        pagamentoRepository.delete(pagamento);
+    }
+
     private Pagamento obterPagamentoDePagamentoRequest(PagamentoRequest pagamentoRequest) {
         return new Pagamento(pagamentoRequest.getPedidoId(), pagamentoRequest.getFormaPagamento(), pagamentoRequest.getValorPago());
     }
