@@ -1,14 +1,18 @@
-package com.zup.pizzaria.dtos;
+package com.zup.pizzaria.dtos.responseDtos;
+
+import java.math.BigDecimal;
 
 public class PedidoResponse {
     private String nomeCliente;
     private String emailCliente;
     private String descricaoPedido;
+    private BigDecimal valorTotal;
 
-    public PedidoResponse(String nomeCliente, String emailCliente, String descricaoPedido) {
+    public PedidoResponse(String nomeCliente, String emailCliente, String descricaoPedido, BigDecimal valorTotal) {
         this.nomeCliente = nomeCliente;
         this.emailCliente = emailCliente;
         this.descricaoPedido = descricaoPedido;
+        this.valorTotal = valorTotal;
     }
 
     public String getNomeCliente() {
@@ -33,5 +37,13 @@ public class PedidoResponse {
 
     public void setDescricaoPedido(String descricaoPedido) {
         this.descricaoPedido = descricaoPedido;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }
