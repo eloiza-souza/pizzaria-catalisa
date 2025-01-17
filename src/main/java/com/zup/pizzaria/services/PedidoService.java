@@ -29,7 +29,7 @@ public class PedidoService {
         return new PedidoResponse(cliente.getNome(), cliente.getEmail(), pedido.getDescricao(), pedido.getValorTotal());
     }
 
-    private Pedido obterPedidoDePedidoRequest(PedidoRequest pedidoRequest){
+    private Pedido obterPedidoDePedidoRequest(PedidoRequest pedidoRequest) {
         return new Pedido(pedidoRequest.getDescricao(), pedidoRequest.getClienteId(), pedidoRequest.getValorTotal());
     }
 }

@@ -2,7 +2,6 @@ package com.zup.pizzaria.controllers;
 
 import com.zup.pizzaria.dtos.requestsDtos.PagamentoRequest;
 import com.zup.pizzaria.dtos.responseDtos.PagamentoResponse;
-import com.zup.pizzaria.models.Pagamento;
 import com.zup.pizzaria.services.PagamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
