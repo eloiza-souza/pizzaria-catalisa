@@ -1,6 +1,6 @@
 package com.zup.pizzaria.services;
 
-import com.zup.pizzaria.dtos.PagamentoDTO;
+import com.zup.pizzaria.dtos.responseDtos.PagamentoResponse;
 import com.zup.pizzaria.models.Pagamento;
 import com.zup.pizzaria.models.Pedido;
 import com.zup.pizzaria.repository.PagamentoRepository;
@@ -16,7 +16,7 @@ public class PagamentoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public PagamentoDTO criarPagamento(Pagamento pagamento) {
+    public PagamentoResponse criarPagamento(Pagamento pagamento) {
         // Obtém o pedido
         Pedido pedido = pedidoRepository
                 .findById(pagamento.getPedidoId())
@@ -24,6 +24,6 @@ public class PagamentoService {
 
         pagamento.validarPagamento(pedido.getValorTotal());
         pagamentoRepository.save(pagamento);
-        return new PagamentoDTO(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago());
+        return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago());
     }
 }

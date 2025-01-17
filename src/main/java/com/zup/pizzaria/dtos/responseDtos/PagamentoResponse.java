@@ -1,13 +1,13 @@
-package com.zup.pizzaria.dtos;
+package com.zup.pizzaria.dtos.responseDtos;
 
 import java.math.BigDecimal;
 
-public class PagamentoDTO {
+public class PagamentoResponse {
     private Long pedidoID;
     private String formaPagamento;
     private BigDecimal valorPago;
 
-    public PagamentoDTO(Long pedidoID, String formaPagamento, BigDecimal valorPago) {
+    public PagamentoResponse(Long pedidoID, String formaPagamento, BigDecimal valorPago) {
         this.pedidoID = pedidoID;
         this.formaPagamento = formaPagamento;
         this.valorPago = valorPago;
