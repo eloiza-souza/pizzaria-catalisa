@@ -1,6 +1,6 @@
 package com.zup.pizzaria.controllers;
 
-import com.zup.pizzaria.dtos.PedidoDTO;
+import com.zup.pizzaria.dtos.PedidoResponse;
 import com.zup.pizzaria.models.Pedido;
 import com.zup.pizzaria.services.PedidoService;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,8 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDTO> criarPedido(@RequestBody Pedido pedido) {
-        PedidoDTO pedidoDTO = pedidoService.criarPedido(pedido);
+    public ResponseEntity<PedidoResponse> criarPedido(@RequestBody Pedido pedido) {
+        PedidoResponse pedidoDTO = pedidoService.criarPedido(pedido);
         return ResponseEntity.ok(pedidoDTO);
     }
 }

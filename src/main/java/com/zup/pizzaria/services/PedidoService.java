@@ -1,6 +1,6 @@
 package com.zup.pizzaria.services;
 
-import com.zup.pizzaria.dtos.PedidoDTO;
+import com.zup.pizzaria.dtos.PedidoResponse;
 import com.zup.pizzaria.models.Cliente;
 import com.zup.pizzaria.models.Pedido;
 import com.zup.pizzaria.repository.ClienteRepository;
@@ -17,7 +17,7 @@ public class PedidoService {
         this.clienteRepository = clienteRepository;
     }
 
-    public PedidoDTO criarPedido(Pedido pedido) {
+    public PedidoResponse criarPedido(Pedido pedido) {
         // Obtenho cliente
         Cliente cliente = clienteRepository
                 .findById(pedido.getClienteId())
@@ -26,6 +26,6 @@ public class PedidoService {
         // Salva pedido
         pedidoRepository.save(pedido);
 
-        return new PedidoDTO(cliente.getNome(), cliente.getEmail(), pedido.getDescricao());
+        return new PedidoResponse(cliente.getNome(), cliente.getEmail(), pedido.getDescricao());
     }
 }
