@@ -1,8 +1,7 @@
 package com.zup.pizzaria.controllers;
 
-import com.zup.pizzaria.dtos.ClienteRequest;
-import com.zup.pizzaria.dtos.ClienteResponse;
-import com.zup.pizzaria.models.Cliente;
+import com.zup.pizzaria.dtos.requestsDtos.ClienteRequest;
+import com.zup.pizzaria.dtos.responseDtos.ClienteResponse;
 import com.zup.pizzaria.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

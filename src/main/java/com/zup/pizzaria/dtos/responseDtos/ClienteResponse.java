@@ -1,4 +1,4 @@
-package com.zup.pizzaria.dtos;
+package com.zup.pizzaria.dtos.responseDtos;
 
 public class ClienteResponse {
     private Long id;
