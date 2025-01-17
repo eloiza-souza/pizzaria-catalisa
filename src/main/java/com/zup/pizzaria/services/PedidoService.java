@@ -45,6 +45,11 @@ public class PedidoService {
         return obterPedidoResponseDePedido(pedido);
     }
 
+    public Pedido obterPedidoPeloId(Long id){
+        return pedidoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
+    }
+
     private PedidoResponse obterPedidoResponseDePedido(Pedido pedido) {
         Cliente cliente = clienteService.obterClientePeloId(pedido.getClienteId());
         return new PedidoResponse(cliente.getNome(), cliente.getEmail(), pedido.getDescricao(), pedido.getValorTotal());
@@ -54,10 +59,7 @@ public class PedidoService {
         return new Pedido(pedidoRequest.getDescricao(), pedidoRequest.getClienteId(), pedidoRequest.getValorTotal());
     }
 
-    private Pedido obterPedidoPeloId(Long id){
-        return pedidoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
-    }
+
 
 
 }
