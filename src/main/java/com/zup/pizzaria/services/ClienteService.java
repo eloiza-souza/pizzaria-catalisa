@@ -18,7 +18,7 @@ public class ClienteService {
     public ClienteResponse criarCliente(ClienteRequest clienteRequest) {
         Cliente cliente = obterClienteDeClienteRequest(clienteRequest);
         clienteRepository.save(cliente);
-        return new ClienteResponse(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone());
+        return obterClienteResponseDeCliente(cliente);
     }
 
     public List<ClienteResponse> lerClientes() {
@@ -39,7 +39,7 @@ public class ClienteService {
         cliente.setEmail(request.getEmail());
         cliente.setTelefone(request.getTelefone());
         clienteRepository.save(cliente);
-        return new ClienteResponse(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone());
+        return obterClienteResponseDeCliente(cliente);
     }
 
     private Cliente obterClienteDeClienteRequest(ClienteRequest clienteRequest) {
