@@ -1,5 +1,6 @@
 package com.zup.pizzaria.services;
 
+import com.zup.pizzaria.dtos.requestsDtos.PagamentoRequest;
 import com.zup.pizzaria.dtos.responseDtos.PagamentoResponse;
 import com.zup.pizzaria.models.Pagamento;
 import com.zup.pizzaria.models.Pedido;
@@ -18,19 +19,24 @@ public class PagamentoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public PagamentoResponse criarPagamento(Pagamento pagamento) {
+    public PagamentoResponse criarPagamento(PagamentoRequest pagamentoRequest) {
         Pedido pedido = pedidoRepository
-                .findById(pagamento.getPedidoId())
+                .findById(pagamentoRequest.getPedidoId())
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
 
-        validarPagamento(pedido.getValorTotal(), pagamento.getValorPago());
+        validarPagamento(pedido.getValorTotal(), pagamentoRequest.getValorPago());
+        Pagamento pagamento = obterPagamentoDePagamentoRequest(pagamentoRequest);
         pagamentoRepository.save(pagamento);
-        return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago(),pagamento.getDataHoraPagamento());
+        return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago(), pagamento.getDataHoraPagamento());
     }
 
     public void validarPagamento(BigDecimal valorTotalPedido, BigDecimal valorPago) {
         if (valorPago.compareTo(valorTotalPedido) < 0) {
             throw new IllegalArgumentException("O valor pago não pode ser menor que o valor total do pedido.");
         }
+    }
+
+    private Pagamento obterPagamentoDePagamentoRequest(PagamentoRequest pagamentoRequest) {
+        return new Pagamento(pagamentoRequest.getPedidoId(), pagamentoRequest.getFormaPagamento(), pagamentoRequest.getValorPago());
     }
 }

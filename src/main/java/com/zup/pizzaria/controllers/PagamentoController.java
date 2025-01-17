@@ -20,8 +20,7 @@ public class PagamentoController {
 
     @PostMapping
     public ResponseEntity<PagamentoResponse> criarPagamento(@Valid @RequestBody PagamentoRequest pagamentoRequest) {
-Pagamento pagamento = new Pagamento(pagamentoRequest.getPedidoId(),pagamentoRequest.getFormaPagamento(), pagamentoRequest.getValorPago());
-        PagamentoResponse pagamentoDTO = pagamentoService.criarPagamento(pagamento);
+        PagamentoResponse pagamentoDTO = pagamentoService.criarPagamento(pagamentoRequest);
         return ResponseEntity.ok(pagamentoDTO);
     }
 
