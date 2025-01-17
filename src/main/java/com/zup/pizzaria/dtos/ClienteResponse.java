@@ -1,12 +1,12 @@
 package com.zup.pizzaria.dtos;
 
-public class ClienteDTO {
+public class ClienteResponse {
     private Long id;
     private String nome;
     private String email;
     private String telefone;
 
-    public ClienteDTO(Long id, String nome, String email, String telefone) {
+    public ClienteResponse(Long id, String nome, String email, String telefone) {
         this.id = id;
         this.nome = nome;
         this.email = email;

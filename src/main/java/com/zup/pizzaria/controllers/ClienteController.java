@@ -1,6 +1,7 @@
 package com.zup.pizzaria.controllers;
 
-import com.zup.pizzaria.dtos.ClienteDTO;
+import com.zup.pizzaria.dtos.ClienteRequest;
+import com.zup.pizzaria.dtos.ClienteResponse;
 import com.zup.pizzaria.models.Cliente;
 import com.zup.pizzaria.services.ClienteService;
 import jakarta.validation.Valid;
@@ -19,8 +20,8 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> criarCliente(@Valid @RequestBody Cliente cliente) {
-        ClienteDTO clienteDTO = clienteService.criarCliente(cliente);
+    public ResponseEntity<ClienteResponse> criarCliente(@Valid @RequestBody ClienteRequest clienteRequest) {
+        ClienteResponse clienteDTO = clienteService.criarCliente(clienteRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);
     }
 }

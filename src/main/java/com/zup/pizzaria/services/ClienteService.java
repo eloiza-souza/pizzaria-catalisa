@@ -1,6 +1,7 @@
 package com.zup.pizzaria.services;
 
-import com.zup.pizzaria.dtos.ClienteDTO;
+import com.zup.pizzaria.dtos.ClienteRequest;
+import com.zup.pizzaria.dtos.ClienteResponse;
 import com.zup.pizzaria.models.Cliente;
 import com.zup.pizzaria.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,13 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public ClienteDTO criarCliente(Cliente cliente){
+    public ClienteResponse criarCliente(ClienteRequest clienteRequest){
+        Cliente cliente = obterClienteDeClienteRequest(clienteRequest);
         clienteRepository.save(cliente);
-        return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getEmail());
+        return new ClienteResponse(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getEmail());
+    }
+
+    private Cliente obterClienteDeClienteRequest(ClienteRequest clienteRequest){
+        return new Cliente(clienteRequest.getNome(), clienteRequest.getEmail(), clienteRequest.getTelefone());
     }
 }
