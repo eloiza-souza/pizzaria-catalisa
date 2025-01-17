@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class PagamentoService {
@@ -36,7 +37,18 @@ public class PagamentoService {
         }
     }
 
+    public List<PagamentoResponse> lerPagamentos(){
+        List<Pagamento> pagamentos = pagamentoRepository.findAll();
+        return pagamentos.stream()
+                .map(this::obterPagamentoResponseDePagamento)
+                .toList();
+    }
+
     private Pagamento obterPagamentoDePagamentoRequest(PagamentoRequest pagamentoRequest) {
         return new Pagamento(pagamentoRequest.getPedidoId(), pagamentoRequest.getFormaPagamento(), pagamentoRequest.getValorPago());
+    }
+
+    private PagamentoResponse obterPagamentoResponseDePagamento(Pagamento pagamento){
+        return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago(), pagamento.getDataHoraPagamento());
     }
 }
