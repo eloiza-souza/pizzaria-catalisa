@@ -1,7 +1,10 @@
 package com.zup.pizzaria.services;
 
+import com.zup.pizzaria.dtos.requestsDtos.ClienteRequest;
 import com.zup.pizzaria.dtos.requestsDtos.PagamentoRequest;
+import com.zup.pizzaria.dtos.responseDtos.ClienteResponse;
 import com.zup.pizzaria.dtos.responseDtos.PagamentoResponse;
+import com.zup.pizzaria.models.Cliente;
 import com.zup.pizzaria.models.Pagamento;
 import com.zup.pizzaria.models.Pedido;
 import com.zup.pizzaria.repository.PagamentoRepository;
@@ -18,17 +21,14 @@ public class PagamentoService {
     private PagamentoRepository pagamentoRepository;
 
     @Autowired
-    private PedidoRepository pedidoRepository;
+    private PedidoService pedidoService;
 
     public PagamentoResponse criarPagamento(PagamentoRequest pagamentoRequest) {
-        Pedido pedido = pedidoRepository
-                .findById(pagamentoRequest.getPedidoId())
-                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
-
+        Pedido pedido = pedidoService.obterPedidoPeloId(pagamentoRequest.getPedidoId());
         validarPagamento(pedido.getValorTotal(), pagamentoRequest.getValorPago());
         Pagamento pagamento = obterPagamentoDePagamentoRequest(pagamentoRequest);
         pagamentoRepository.save(pagamento);
-        return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago(), pagamento.getDataHoraPagamento());
+        return obterPagamentoResponseDePagamento(pagamento);
     }
 
     public void validarPagamento(BigDecimal valorTotalPedido, BigDecimal valorPago) {
@@ -44,11 +44,25 @@ public class PagamentoService {
                 .toList();
     }
 
+    public PagamentoResponse atualizarPagamento(Long id, PagamentoRequest request){
+        Pagamento pagamento = obterPagamentoPeloId(id);
+        pagamento.setPedidoId(request.getPedidoId());
+        pagamento.setFormaPagamento(request.getFormaPagamento());
+        pagamento.setValorPago(request.getValorPago());
+        pagamentoRepository.save(pagamento);
+        return obterPagamentoResponseDePagamento(pagamento);
+    }
+
     private Pagamento obterPagamentoDePagamentoRequest(PagamentoRequest pagamentoRequest) {
         return new Pagamento(pagamentoRequest.getPedidoId(), pagamentoRequest.getFormaPagamento(), pagamentoRequest.getValorPago());
     }
 
     private PagamentoResponse obterPagamentoResponseDePagamento(Pagamento pagamento){
         return new PagamentoResponse(pagamento.getPedidoId(), pagamento.getFormaPagamento(), pagamento.getValorPago(), pagamento.getDataHoraPagamento());
+    }
+
+    private Pagamento obterPagamentoPeloId(Long pagamentoId) {
+        return pagamentoRepository.findById(pagamentoId)
+                .orElseThrow(() -> new IllegalArgumentException("Pagamento não encontrado"));
     }
 }
