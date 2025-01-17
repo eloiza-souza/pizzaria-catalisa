@@ -15,16 +15,10 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome não pode ser vazio ou nulo.")
     private String nome;
 
-    @NotBlank(message = "O email não pode ser vazio ou nulo.")
-    @Email(message = "O email deve ser válido.")
     private String email;
 
-    @NotBlank(message = "O telefone não pode ser vazio ou nulo.")
-    @Pattern(regexp = "\\d+", message = "O telefone deve conter apenas números.")
-    @Size(min = 8, message = "O telefone deve ter no mínimo 8 dígitos.")
     private String telefone;
 
     public Cliente() {
