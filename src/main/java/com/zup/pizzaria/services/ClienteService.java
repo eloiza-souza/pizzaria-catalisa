@@ -42,6 +42,11 @@ public class ClienteService {
         return obterClienteResponseDeCliente(cliente);
     }
 
+    public void deletarCliente(Long id){
+        Cliente cliente = obterClientePeloId(id);
+        clienteRepository.delete(cliente);
+    }
+
     private Cliente obterClienteDeClienteRequest(ClienteRequest clienteRequest) {
         return new Cliente(clienteRequest.getNome(), clienteRequest.getEmail(), clienteRequest.getTelefone());
     }
