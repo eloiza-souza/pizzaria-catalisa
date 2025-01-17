@@ -1,4 +1,4 @@
-package com.zup.pizzaria.dtos;
+package com.zup.pizzaria.dtos.requestsDtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
