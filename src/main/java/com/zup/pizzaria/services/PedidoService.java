@@ -11,25 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class PedidoService {
     private final PedidoRepository pedidoRepository;
-    private final ClienteRepository clienteRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository, ClienteRepository clienteRepository) {
+    public PedidoService(PedidoRepository pedidoRepository) {
         this.pedidoRepository = pedidoRepository;
-        this.clienteRepository = clienteRepository;
     }
 
     public PedidoResponse criarPedido(PedidoRequest pedidoRequest) {
-        Cliente cliente = clienteRepository
-                .findById(pedidoRequest.getClienteId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
-
+        Cliente cliente = new ClienteService().obterClientePeloId(pedidoRequest.getClienteId());
         Pedido pedido = obterPedidoDePedidoRequest(pedidoRequest);
         pedidoRepository.save(pedido);
-
         return new PedidoResponse(cliente.getNome(), cliente.getEmail(), pedido.getDescricao(), pedido.getValorTotal());
     }
 
     private Pedido obterPedidoDePedidoRequest(PedidoRequest pedidoRequest){
         return new Pedido(pedidoRequest.getDescricao(), pedidoRequest.getClienteId(), pedidoRequest.getValorTotal());
     }
+
 }

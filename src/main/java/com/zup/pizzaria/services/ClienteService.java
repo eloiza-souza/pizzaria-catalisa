@@ -28,11 +28,16 @@ public class ClienteService {
                 .toList();
     }
 
+    public Cliente obterClientePeloId(Long clienteId) {
+        return clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+    }
+
     private Cliente obterClienteDeClienteRequest(ClienteRequest clienteRequest) {
         return new Cliente(clienteRequest.getNome(), clienteRequest.getEmail(), clienteRequest.getTelefone());
     }
 
-    private ClienteResponse obterClienteResponseDeCliente(Cliente cliente){
+    private ClienteResponse obterClienteResponseDeCliente(Cliente cliente) {
         return new ClienteResponse(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone());
     }
 }
