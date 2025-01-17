@@ -50,6 +50,11 @@ public class PedidoService {
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
     }
 
+    public void deletarPedido(Long id){
+        Pedido pedido = obterPedidoPeloId(id);
+        pedidoRepository.delete(pedido);
+    }
+
     private PedidoResponse obterPedidoResponseDePedido(Pedido pedido) {
         Cliente cliente = clienteService.obterClientePeloId(pedido.getClienteId());
         return new PedidoResponse(cliente.getNome(), cliente.getEmail(), pedido.getDescricao(), pedido.getValorTotal());
